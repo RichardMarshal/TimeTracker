@@ -4,32 +4,61 @@
 <!DOCTYPE html>
 <html>
 	<head>
+	<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/css/employeeTimeTracker.css">
 		<title>Time Tracker</title>
 	</head>
 	<body>
-		<h2>My Time</h2>
-		<form id="filterForm" action="employeeTimeTracker" method="post" >
-			<span>Employee : <input type="text" name="employeeName" id="employeeName" value="${employeeName}"></input></span>
+	<label class="text-label">Hello ${employeeName}!</label>
 			<br>
-			Select Date: <input type="date" name="dateSelector" id="dateSelector" value="${selectedDate}" max="<%=java.time.LocalDate.now()%>">
-			<input type="submit" value="Filter">
+	<div class="container">
+		<form id="filterForm" action="employeeTimeTracker" method="post" >
+			Select Date: 
+			<input type="date" class="date-input" name="dateSelector" id="dateSelector" value="${selectedDate}" max="<%=java.time.LocalDate.now()%>">
+			<button class="button filter__submit">
+						<span class="button__text">Filter</span> 
+						<i class="button__icon fas fa-chevron-right"></i>
+					</button>
 		</form>
 		<br>
+		<div class="company-ref">
+					<a class="shape4" onclick="redirectToUM()"> 
+						<script>
+							function redirectToUM(){
+								window.open('http://www.ultramain.com', '_blank');
+							}
+						</script>
+					</a>
+				</div>
+		<div class="table-container">
 		<% if (request.getAttribute("totalTime") != null) { %>
-		<table border="1">
-			<thead>
-				<tr>
-					<th>Total In Time</th>
-					<th>Total Out Time</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>${totalTime.deviceLog_totalInTime}</td>
-					<td>${totalTime.deviceLog_totalOutTime}</td>
-				</tr>
-			</tbody>
-		</table>
+		<div class="inTime-container">
+			<label class="inTime-label">Total In Time
+				<span class="inTime-span">${totalTime.deviceLog_totalInTime}</span>
+			</label>
+		</div>
+		<br>
+		<div class="outTime-container">
+			<label class="outTime-label">Total Out Time
+				<span class="outTime-span">${totalTime.deviceLog_totalOutTime}</span>
+			</label>
+		</div>
+<!-- 		<table border="1"> -->
+<!-- 			<thead> -->
+<!-- 				<tr> -->
+<!-- 					<th>Total In Time</th> -->
+<!-- 					<th>Total Out Time</th> -->
+<!-- 				</tr> -->
+<!-- 			</thead> -->
+<!-- 			<tbody> -->
+<!-- 				<tr> -->
+<%-- 					<td>${totalTime.deviceLog_totalInTime}</td> --%>
+<%-- 					<td>${totalTime.deviceLog_totalOutTime}</td> --%>
+<!-- 				</tr> -->
+<!-- 			</tbody> -->
+<!-- 		</table> -->
 		<% } %>
+		</div>
+		</div>
 	</body>
 </html>
