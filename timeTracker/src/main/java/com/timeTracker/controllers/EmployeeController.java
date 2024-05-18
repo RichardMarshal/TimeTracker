@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,7 +40,17 @@ public class EmployeeController {
 	private DeviceLogService deviceLogService;
 
 	@RequestMapping("/login")
-	public String login() {
+	public String login(HttpServletRequest request, HttpServletResponse response) {
+		// Invalidate current session
+        HttpSession session = request.getSession(false); // false to prevent creating a new session if none exists
+        if (session != null) {
+            session.invalidate();
+        }
+        
+        // Set headers to prevent browser history
+        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+        response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
+        response.setHeader("Expires", "0"); // Proxies.
 		return "login";
 	}
 
@@ -98,8 +110,8 @@ public class EmployeeController {
 	public String employeeTimeTracker(HttpServletRequest request, @RequestParam("dateSelector") String inputDate, Model model) {
 		String userId = (String) request.getSession().getAttribute("employeeCode");
 		List<DeviceLogEntity> deviceLogEntityList = deviceLogDao.getDeviceLog(userId,inputDate);
-		DeviceLogDto deviceLogDto = deviceLogService.fillDeviceLogDto(deviceLogEntityList);
-		model.addAttribute("totalTime", deviceLogDto);
+		DeviceLogDto deviceLogDto = deviceLogService.fillDeviceLogDto(deviceLogEntityList, userId, inputDate);
+		model.addAttribute("deviceLogDto", deviceLogDto);
 		return "employeeTimeTracker";
 	}
 }

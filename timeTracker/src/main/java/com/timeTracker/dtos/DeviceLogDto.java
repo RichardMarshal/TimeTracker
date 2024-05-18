@@ -10,18 +10,30 @@ public class DeviceLogDto implements Serializable{
 	private String deviceLog_userId;
 	private String deviceLog_employeeName;
 	private Timestamp deviceLog_logDate;
-	private String deviceLog_totalInTime;
-	private String deviceLog_totalOutTime;
+	private String deviceLog_totalInHour;
+	private String deviceLog_totalInMin;
+	private String deviceLog_totalInSec;
+	private String deviceLog_totalOutHour;
+	private String deviceLog_totalOutMin;
+	private String deviceLog_totalOutSec;
 	
 	public DeviceLogDto(String deviceLog_userId,
 			Timestamp deviceLog_logDate,
-			String deviceLog_totalInTime,
-			String deviceLog_totalOutTime) {
+			String deviceLog_totalInHour,
+	 String deviceLog_totalInMin,
+	 String deviceLog_totalInSec,
+	 String deviceLog_totalOutHour,
+	 String deviceLog_totalOutMin,
+	 String deviceLog_totalOutSec) {
 		super();
 		this.deviceLog_userId = deviceLog_userId;
 		this.deviceLog_logDate = deviceLog_logDate;
-		this.deviceLog_totalInTime = deviceLog_totalInTime;
-		this.deviceLog_totalOutTime = deviceLog_totalOutTime;
+		this.deviceLog_totalInHour = deviceLog_totalInHour;
+		this.deviceLog_totalInMin = deviceLog_totalInMin;
+		this.deviceLog_totalInSec = deviceLog_totalInSec;
+		this.deviceLog_totalOutHour = deviceLog_totalOutHour;
+		this.deviceLog_totalOutMin = deviceLog_totalOutMin;
+		this.deviceLog_totalOutSec = deviceLog_totalOutSec;
 	}
 
 	public DeviceLogDto() {
@@ -71,32 +83,87 @@ public class DeviceLogDto implements Serializable{
 	}
 
 	/**
-	 * @return the deviceLog_totalInTime
+	 * @return the deviceLog_totalInHour
 	 */
-	public String getDeviceLog_totalInTime() {
-		return deviceLog_totalInTime;
+	public String getDeviceLog_totalInHour() {
+		return deviceLog_totalInHour;
 	}
 
 	/**
-	 * @param deviceLog_totalInTime the deviceLog_totalInTime to set
+	 * @param deviceLog_totalInHour the deviceLog_totalInHour to set
 	 */
-	public void setDeviceLog_totalInTime(String deviceLog_totalInTime) {
-		this.deviceLog_totalInTime = deviceLog_totalInTime;
+	public void setDeviceLog_totalInHour(String deviceLog_totalInHour) {
+		this.deviceLog_totalInHour = deviceLog_totalInHour;
 	}
 
 	/**
-	 * @return the deviceLog_totalOutTime
+	 * @return the deviceLog_totalInMin
 	 */
-	public String getDeviceLog_totalOutTime() {
-		return deviceLog_totalOutTime;
+	public String getDeviceLog_totalInMin() {
+		return deviceLog_totalInMin;
 	}
 
 	/**
-	 * @param deviceLog_totalOutTime the deviceLog_totalOutTime to set
+	 * @param deviceLog_totalInMin the deviceLog_totalInMin to set
 	 */
-	public void setDeviceLog_totalOutTime(String deviceLog_totalOutTime) {
-		this.deviceLog_totalOutTime = deviceLog_totalOutTime;
+	public void setDeviceLog_totalInMin(String deviceLog_totalInMin) {
+		this.deviceLog_totalInMin = deviceLog_totalInMin;
 	}
 
+	/**
+	 * @return the deviceLog_totalInSec
+	 */
+	public String getDeviceLog_totalInSec() {
+		return deviceLog_totalInSec;
+	}
+
+	/**
+	 * @param deviceLog_totalInSec the deviceLog_totalInSec to set
+	 */
+	public void setDeviceLog_totalInSec(String deviceLog_totalInSec) {
+		this.deviceLog_totalInSec = deviceLog_totalInSec;
+	}
+
+	/**
+	 * @return the deviceLog_totalOutHour
+	 */
+	public String getDeviceLog_totalOutHour() {
+		return deviceLog_totalOutHour;
+	}
+
+	/**
+	 * @param deviceLog_totalOutHour the deviceLog_totalOutHour to set
+	 */
+	public void setDeviceLog_totalOutHour(String deviceLog_totalOutHour) {
+		this.deviceLog_totalOutHour = deviceLog_totalOutHour;
+	}
+
+	/**
+	 * @return the deviceLog_totalOutMin
+	 */
+	public String getDeviceLog_totalOutMin() {
+		return deviceLog_totalOutMin;
+	}
+
+	/**
+	 * @param deviceLog_totalOutMin the deviceLog_totalOutMin to set
+	 */
+	public void setDeviceLog_totalOutMin(String deviceLog_totalOutMin) {
+		this.deviceLog_totalOutMin = deviceLog_totalOutMin;
+	}
+
+	/**
+	 * @return the deviceLog_totalOutSec
+	 */
+	public String getDeviceLog_totalOutSec() {
+		return deviceLog_totalOutSec;
+	}
+
+	/**
+	 * @param deviceLog_totalOutSec the deviceLog_totalOutSec to set
+	 */
+	public void setDeviceLog_totalOutSec(String deviceLog_totalOutSec) {
+		this.deviceLog_totalOutSec = deviceLog_totalOutSec;
+	}
 	
 }

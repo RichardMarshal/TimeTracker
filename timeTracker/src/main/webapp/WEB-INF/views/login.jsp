@@ -4,6 +4,13 @@
 <title>Login</title>
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/login.css">
+	<script>
+        // Disable back button to prevent navigating back to login page
+        history.pushState(null, null, location.href);
+        window.onpopstate = function () {
+            history.go(1);
+        };
+    </script>
 </head>
 <body>
 	<div class="container">

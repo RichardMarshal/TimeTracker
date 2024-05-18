@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.internal.util.collections.CollectionHelper;
 import org.springframework.stereotype.Service;
 
 import com.timeTracker.dtos.DeviceLogDto;
@@ -17,6 +18,8 @@ import com.timeTracker.entities.DeviceLogEntity;
 @Service
 public class DeviceLogService {
 
+	private static final String NO_TIME = "00";
+	
 	public String getNextDateString(String inputDate) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Calendar calendar = null;
@@ -51,12 +54,20 @@ public class DeviceLogService {
         }
     }
 	
-	public DeviceLogDto fillDeviceLogDto(List<DeviceLogEntity> deviceLogEntityList) {
-		Map<String,String> resultMap = getCalculatedInOutTime(deviceLogEntityList);
+	public DeviceLogDto fillDeviceLogDto(List<DeviceLogEntity> deviceLogEntityList, String userId, String inputDate) {
+		Map<String,String> resultMap = new HashMap<>();
+		if(CollectionHelper.isEmpty(deviceLogEntityList)) {
+			return new DeviceLogDto(userId, Timestamp.valueOf(inputDate += " 00:00:00"), NO_TIME, NO_TIME, NO_TIME, NO_TIME, NO_TIME, NO_TIME);
+		}
+		resultMap = getCalculatedInOutTime(deviceLogEntityList);
 		DeviceLogDto deviceLogDto = new DeviceLogDto(resultMap.get("USERID"),
 				Timestamp.valueOf(resultMap.get("LOGDATE")),
-				resultMap.get("INTIME"),
-				resultMap.get("OUTTIME"));
+				resultMap.get("INHOUR"),
+				resultMap.get("INMIN"),
+				resultMap.get("INSEC"),
+				resultMap.get("OUTHOUR"),
+				resultMap.get("OUTMIN"),
+				resultMap.get("OUTSEC"));
 		
 		return deviceLogDto;
 	}
@@ -94,14 +105,20 @@ public class DeviceLogService {
 		long hoursDifference = secondsDifference / 3600;
 		long minutesDifference = (secondsDifference % 3600) / 60;
 		long secondsRemaining = secondsDifference % 60;
-		String inTimeResult = hoursDifference + " hours, " + minutesDifference + " minutes, " + secondsRemaining + " seconds.";
+		resultMap.put("INHOUR", hoursDifference < 10 ? "0"+String.valueOf(hoursDifference) : String.valueOf(hoursDifference));
+		resultMap.put("INMIN", minutesDifference < 10 ? "0"+String.valueOf(minutesDifference) : String.valueOf(minutesDifference));
+		resultMap.put("INSEC", secondsRemaining < 10 ? "0"+String.valueOf(secondsRemaining) : String.valueOf(secondsRemaining));
+//		String inTimeResult = hoursDifference + " hours, " + minutesDifference + " minutes, " + secondsRemaining + " seconds.";
 		secondsDifference = outTime / 1000;
 		hoursDifference = secondsDifference / 3600;
 		minutesDifference = (secondsDifference % 3600) / 60;
 		secondsRemaining = secondsDifference % 60;
-		String outTimeResult = hoursDifference + " hours, " + minutesDifference + " minutes, " + secondsRemaining + " seconds.";
-		resultMap.put("INTIME", inTimeResult);
-		resultMap.put("OUTTIME", outTimeResult);
+		resultMap.put("OUTHOUR", hoursDifference < 10 ? "0"+String.valueOf(hoursDifference) : String.valueOf(hoursDifference));
+		resultMap.put("OUTMIN", minutesDifference < 10 ? "0"+String.valueOf(minutesDifference) : String.valueOf(minutesDifference));
+		resultMap.put("OUTSEC", secondsRemaining < 10 ? "0"+String.valueOf(secondsRemaining) : String.valueOf(secondsRemaining));
+//		String outTimeResult = hoursDifference + " hours, " + minutesDifference + " minutes, " + secondsRemaining + " seconds.";
+//		resultMap.put("INTIME", inTimeResult);
+//		resultMap.put("OUTTIME", outTimeResult);
 		return resultMap;
 	}
 }
