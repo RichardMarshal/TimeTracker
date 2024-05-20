@@ -1,0 +1,37 @@
+.shape4 {
+	background-size: cover;
+	background-repeat: no-repeat;
+	display: block;
+	cursor: pointer;
+	transition: transform 0.2s ease-in-out;
+	filter: drop-shadow(2px 4px 6px black);
+	position: relative;
+	left: -467px;
+	top: -18px;
+}
+
+.shape4:hover {
+	transform: scale(1.1);
+}
+
+.navbar{
+	height: 50px;
+	border-bottom: 1px solid black;
+	background: linear-gradient(to bottom, black, #475360);
+}
+
+.navbar .container{
+	position: relative;
+	top: 13px;
+	left: 117px;
+}
+
+#navbarSupportedContent{
+	position: relative;
+	top: -13px;
+	left: 208px;
+}
+
+#navbarDropdown{
+	color: white;
+}
